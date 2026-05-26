@@ -1,0 +1,30 @@
+package com.mygdx.game;
+
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+
+import java.util.Random;
+
+import com.badlogic.gdx.graphics.Color;
+
+public class Block {
+    int x,y,width,height;
+    Color cc;
+    boolean destroyed;
+    
+    public Block(int x, int y, int width, int height) {
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
+        destroyed = false;
+        Random r = new Random(x+y);
+        //cc = Color.RED;
+        cc = new Color(255, 0, 0,0);
+       //cc = new Color(0.1f+r.nextFloat(0.9f), r.nextFloat(0.9f), r.nextFloat(0.9f), 10);
+  
+    }
+    public void draw(ShapeRenderer shape){
+    	shape.setColor(cc);
+        shape.rect(x, y, width, height);
+    }
+}
