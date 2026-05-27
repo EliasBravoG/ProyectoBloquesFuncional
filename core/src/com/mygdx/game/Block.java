@@ -7,9 +7,18 @@ import java.util.Random;
 import com.badlogic.gdx.graphics.Color;
 
 public class Block {
-    int x,y,width,height;
-    Color cc;
-    boolean destroyed;
+    //int x,y,width,height;
+	
+	//encapsulamiento ponermos los atrivutos en privado
+	private int x;
+	private int y;
+	private int width;
+	private int height;
+	private Color cc;
+	private boolean destroyed;
+	
+    //Color cc;
+    //boolean destroyed;
     
     public Block(int x, int y, int width, int height) {
         this.x = x;
@@ -26,5 +35,30 @@ public class Block {
     public void draw(ShapeRenderer shape){
     	shape.setColor(cc);
         shape.rect(x, y, width, height);
+    }
+    
+    //metodos de acceso publico es decir getters y setters
+    public int getX() {
+    	return x;
+    }
+    
+    public int getY() {
+    	return y;
+    }
+    
+    public int getWidth() {
+    	return width;
+    }
+    
+    public int getHeight() {
+    	return height;
+    }
+    
+    public boolean isDestroyed() {
+    	return destroyed;
+    }
+    
+    public void setDestroyed(boolean destroyed) {
+    	this.destroyed=destroyed;
     }
 }
