@@ -69,6 +69,8 @@ public class BlockBreakerGame extends ApplicationAdapter {
 		public void render () {
 			Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT); 		
 	        shape.begin(ShapeRenderer.ShapeType.Filled);
+	        
+	        pad.update();//llamamos a update de la paleta para que responda el teclado 
 	        pad.draw(shape);
 	        // monitorear inicio del juego
 	        if (ball.estaQuieto()) {
