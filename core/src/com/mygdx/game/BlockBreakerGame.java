@@ -21,8 +21,8 @@ public class BlockBreakerGame extends ApplicationAdapter {
 	private PingBall ball;
 	private Paddle pad;
 	private ArrayList<Block> blocks = new ArrayList<>();
-	private int vidas;
-	private int puntaje;
+	//private int vidas;
+	//private int puntaje;
 	private int nivel;
     
 		@Override
@@ -38,8 +38,8 @@ public class BlockBreakerGame extends ApplicationAdapter {
 		    shape = new ShapeRenderer();
 		    ball = new PingBall(Gdx.graphics.getWidth()/2-10, 41, 10, 5, 7, true);
 		    pad = new Paddle(Gdx.graphics.getWidth()/2-50,40,100,10);
-		    vidas = 3;
-		    puntaje = 0;    
+		    //vidas = 3;
+		    //puntaje = 0;    
 		}
 		public void crearBloques(int filas) {
 			blocks.clear();
@@ -59,9 +59,14 @@ public class BlockBreakerGame extends ApplicationAdapter {
 			//actualizar 
 			batch.setProjectionMatrix(camera.combined);
 			batch.begin();
+			
+			ManejoDePuntaje gm=ManejoDePuntaje.getInstance();
 			//dibujar textos
-			font.draw(batch, "Puntos: " + puntaje, 10, 25);
-			font.draw(batch, "Vidas : " + vidas, Gdx.graphics.getWidth()-20, 25);
+			//font.draw(batch, "Puntos: " + puntaje, 10, 25); cambiado por lo de ManejoDePuntaje
+			font.draw(batch,"Puntos: "+gm.getPuntaje(),10,25);
+			
+			//font.draw(batch, "Vidas : " + vidas, Gdx.graphics.getWidth()-20, 25);
+			font.draw(batch, "Vidas : " + gm.getVidas(), Gdx.graphics.getWidth()-20, 25);
 			batch.end();
 		}	
 		
@@ -72,6 +77,9 @@ public class BlockBreakerGame extends ApplicationAdapter {
 	        
 	        pad.update();//llamamos a update de la paleta para que responda el teclado 
 	        pad.draw(shape);
+	        
+	        ManejoDePuntaje gm= ManejoDePuntaje.getInstance();//llamada del singleton
+	        
 	        // monitorear inicio del juego
 	        if (ball.estaQuieto()) {
 	        	ball.setXY(pad.getX()+pad.getWidth()/2-5, pad.getY()+pad.getHeight()+11);
@@ -79,13 +87,14 @@ public class BlockBreakerGame extends ApplicationAdapter {
 	        }else ball.update();
 	        //verificar si se fue la bola x abajo
 	        if (ball.getY()<0) {
-	        	vidas--;
+	        	gm.perderVida(); 
+	        	//vidas--;
 	        	//nivel = 1;
 	        	ball = new PingBall(pad.getX()+pad.getWidth()/2-5, pad.getY()+pad.getHeight()+11, 10, 5, 7, true);
 	        }
 	        // verificar game over
-	        if (vidas<=0) {
-	        	vidas = 3;
+	        if (gm.getVidas()<=0) {
+	        	gm.reset();
 	        	nivel = 1;
 	        	crearBloques(2+nivel);
 	        	//ball = new PingBall(pad.getX()+pad.getWidth()/2-5, pad.getY()+pad.getHeight()+11, 10, 5, 7, true);	        	
@@ -105,7 +114,7 @@ public class BlockBreakerGame extends ApplicationAdapter {
 	        for (int i = 0; i < blocks.size(); i++) {
 	            Block b = blocks.get(i);
 	            if (b.isDestroyed()) { //se cambia b.destroyed pro b.isDestroyed
-	            	puntaje++; 
+	            	gm.sumerPuntos(1); 
 	                blocks.remove(b);
 	                i--; //para no saltarse 1 tras eliminar del arraylist
 	            }
