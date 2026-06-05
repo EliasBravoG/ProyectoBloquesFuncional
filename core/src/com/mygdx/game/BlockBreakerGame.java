@@ -60,13 +60,13 @@ public class BlockBreakerGame extends ApplicationAdapter {
 			batch.setProjectionMatrix(camera.combined);
 			batch.begin();
 			
-			ManejoDePuntaje gm=ManejoDePuntaje.getInstance();
+			ManejoDePuntaje pv=ManejoDePuntaje.getInstance();
 			//dibujar textos
 			//font.draw(batch, "Puntos: " + puntaje, 10, 25); cambiado por lo de ManejoDePuntaje
-			font.draw(batch,"Puntos: "+gm.getPuntaje(),10,25);
+			font.draw(batch,"Puntos: "+pv.getPuntaje(),10,25);
 			
 			//font.draw(batch, "Vidas : " + vidas, Gdx.graphics.getWidth()-20, 25);
-			font.draw(batch, "Vidas : " + gm.getVidas(), Gdx.graphics.getWidth()-20, 25);
+			font.draw(batch, "Vidas : " + pv.getVidas(), Gdx.graphics.getWidth()-20, 25);
 			batch.end();
 		}	
 		
@@ -78,7 +78,7 @@ public class BlockBreakerGame extends ApplicationAdapter {
 	        pad.update();//llamamos a update de la paleta para que responda el teclado 
 	        pad.draw(shape);
 	        
-	        ManejoDePuntaje gm= ManejoDePuntaje.getInstance();//llamada del singleton
+	        ManejoDePuntaje pv= ManejoDePuntaje.getInstance();//llamada del singleton
 	        
 	        // monitorear inicio del juego
 	        if (ball.estaQuieto()) {
@@ -87,14 +87,14 @@ public class BlockBreakerGame extends ApplicationAdapter {
 	        }else ball.update();
 	        //verificar si se fue la bola x abajo
 	        if (ball.getY()<0) {
-	        	gm.perderVida(); 
+	        	pv.perderVida(); 
 	        	//vidas--;
 	        	//nivel = 1;
 	        	ball = new PingBall(pad.getX()+pad.getWidth()/2-5, pad.getY()+pad.getHeight()+11, 10, 5, 7, true);
 	        }
 	        // verificar game over
-	        if (gm.getVidas()<=0) {
-	        	gm.reset();
+	        if (pv.getVidas()<=0) {
+	        	pv.reset();
 	        	nivel = 1;
 	        	crearBloques(2+nivel);
 	        	//ball = new PingBall(pad.getX()+pad.getWidth()/2-5, pad.getY()+pad.getHeight()+11, 10, 5, 7, true);	        	
@@ -110,11 +110,25 @@ public class BlockBreakerGame extends ApplicationAdapter {
 	            b.draw(shape);
 	            ball.checkCollision(b);
 	        }
+	        
+	        //neuvo de strategy 
+	        
+	        //si se presiona D se dobla el putnaje 
+	        if(Gdx.input.isKeyPressed(Input.Keys.D)) {
+	        	pv.setEstrategia(new EfectoMasPuntos());
+	        }
+	        //si se presiona N se vielve al puntaje normal 
+	        if(Gdx.input.isKeyPressed(Input.Keys.N)) {
+	        	pv.setEstrategia(new PuntajeNormal());
+	        }
+	        //fin codigo strtegy 
+	        
+	        
 	        // actualizar estado de los bloques 
 	        for (int i = 0; i < blocks.size(); i++) {
 	            Block b = blocks.get(i);
 	            if (b.isDestroyed()) { //se cambia b.destroyed pro b.isDestroyed
-	            	gm.sumerPuntos(1); 
+	            	pv.sumarPuntos(1); 
 	                blocks.remove(b);
 	                i--; //para no saltarse 1 tras eliminar del arraylist
 	            }

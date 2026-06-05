@@ -6,6 +6,9 @@ public class ManejoDePuntaje {
 	private int vidas;
 	private int puntaje;
 	
+	//atributo qeu almacena la estrategia 
+	private StrategyPuntaje estrategiaActual;
+	
 	private ManejoDePuntaje() {
 		reset();
 	}
@@ -15,6 +18,11 @@ public class ManejoDePuntaje {
 			instance= new ManejoDePuntaje();
 		}
 		return instance;
+	}
+	
+	//Nuevo 
+	public void setEstrategia(StrategyPuntaje nuevaEstrategia) {
+		this.estrategiaActual=nuevaEstrategia;
 	}
 	
 	public int getVidas() {
@@ -29,13 +37,17 @@ public class ManejoDePuntaje {
 		return puntaje;
 	}
 	
-	public void sumerPuntos(int puntos) {
-		puntaje+=puntos;
+	public void sumarPuntos(int puntosBase) {
+		int puntosFinales=estrategiaActual.calcularPuntos(puntosBase);
+		puntaje+=puntosFinales;
 	}
 	
 	public void reset() {
 		vidas=3;
 		puntaje=0;
+		
+		//nuevo
+		estrategiaActual=new PuntajeNormal();
 	}
 
 }
