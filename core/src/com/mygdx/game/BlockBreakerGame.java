@@ -21,8 +21,6 @@ public class BlockBreakerGame extends ApplicationAdapter {
 	private PingBall ball;
 	private Paddle pad;
 	private ArrayList<Block> blocks = new ArrayList<>();
-	//private int vidas;
-	//private int puntaje;
 	private int nivel;
     
 		@Override
@@ -61,15 +59,26 @@ public class BlockBreakerGame extends ApplicationAdapter {
 			batch.begin();
 			
 			ManejoDePuntaje pv=ManejoDePuntaje.getInstance();
-			//dibujar textos
-			//font.draw(batch, "Puntos: " + puntaje, 10, 25); cambiado por lo de ManejoDePuntaje
+			
 			font.draw(batch,"Puntos: "+pv.getPuntaje(),10,25);
 			
-			//font.draw(batch, "Vidas : " + vidas, Gdx.graphics.getWidth()-20, 25);
+			
 			font.draw(batch, "Vidas : " + pv.getVidas(), Gdx.graphics.getWidth()-20, 25);
 			batch.end();
 		}	
+		//metodos para el method temple 
+		public PingBall getBall() {
+			return ball;
+		}
 		
+		public void reiniciarBola() {
+			//ball=new PingBall(pad.getX()+pad.getWidth()/2-5, pad.getY()+pad.getHeight()+11, 10, 5, 7, true);
+			ball = new PingBallBuilder().setPosicion(pad.getX() + pad.getWidth() / 2 - 5, pad.getY() + pad.getHeight() + 11).setSize(10).setVelocidad(5, 7).setInicioQuieto(true).build();
+		}
+		 public void subirNivel() {
+			 nivel++;
+			 crearBloques(2+nivel);
+		 }
 		@Override
 		public void render () {
 			Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT); 		
@@ -87,23 +96,22 @@ public class BlockBreakerGame extends ApplicationAdapter {
 	        }else ball.update();
 	        //verificar si se fue la bola x abajo
 	        if (ball.getY()<0) {
-	        	pv.perderVida(); 
-	        	//vidas--;
-	        	//nivel = 1;
-	        	ball = new PingBall(pad.getX()+pad.getWidth()/2-5, pad.getY()+pad.getHeight()+11, 10, 5, 7, true);
+	        	SecuenciaEvento perderVida =new SecuenciaPerderVida();
+	        	perderVida.ejecutarSecuencia(this,pv);
+	        	
 	        }
 	        // verificar game over
 	        if (pv.getVidas()<=0) {
 	        	pv.reset();
 	        	nivel = 1;
 	        	crearBloques(2+nivel);
-	        	//ball = new PingBall(pad.getX()+pad.getWidth()/2-5, pad.getY()+pad.getHeight()+11, 10, 5, 7, true);	        	
+	        	        	
 	        }
 	        // verificar si el nivel se terminó
 	        if (blocks.size()==0) {
-	        	nivel++;
-	        	crearBloques(2+nivel);
-	        	ball = new PingBall(pad.getX()+pad.getWidth()/2-5, pad.getY()+pad.getHeight()+11, 10, 5, 7, true);
+	        	SecuenciaEvento pasarNivel=new PasarNivel();
+	        	pasarNivel.ejecutarSecuencia(this,pv);
+	        	
 	        }    	
 	        //dibujar bloques
 	        for (Block b : blocks) {        	

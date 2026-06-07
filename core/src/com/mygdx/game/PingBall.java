@@ -7,9 +7,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 public class PingBall extends gameObject implements Movible{ //se agrega el extends gameObject y el implments movible 
-	    //private int x;
-	    //private int y;
-	    //private int size;
+	
 	    private int xSpeed;
 	    private int ySpeed;
 	    private Color color = Color.WHITE;
@@ -17,9 +15,7 @@ public class PingBall extends gameObject implements Movible{ //se agrega el exte
 	    
 	    public PingBall(int x, int y, int size, int xSpeed, int ySpeed, boolean iniciaQuieto) {
 	        super(x,y,size,size); //usamos size como ancho y alto 
-	    	//this.x = x;
-	        //this.y = y;
-	        //this.size = size;
+	    	
 	        this.xSpeed = xSpeed;
 	        this.ySpeed = ySpeed;
 	        estaQuieto = iniciaQuieto;
@@ -44,10 +40,7 @@ public class PingBall extends gameObject implements Movible{ //se agrega el exte
 	    
 	    public int getY() {return y;}
 	    
-	    /*public void draw(ShapeRenderer shape){
-	        shape.setColor(color);
-	        shape.circle(x, y, getSize());
-	    }*/
+	  
 	    //agregagmos metodo abtracto heredado de gameobject 
 	    @Override 
 	    public void draw(ShapeRenderer shape) {
@@ -72,33 +65,9 @@ public class PingBall extends gameObject implements Movible{ //se agrega el exte
 	    		ySpeed=-ySpeed;
 	    	}
 	    }
-	    /*
-	    public void update() {
-	    	if (estaQuieto) return;
-	        x += xSpeed;
-	        y += ySpeed;
-	        if (x-size < 0 || x+size > Gdx.graphics.getWidth()) {
-	            xSpeed = -xSpeed;
-	        }
-	        if (y+size > Gdx.graphics.getHeight()) {
-	            ySpeed = -ySpeed;
-	        }
-	    }
-	    */
+
 	    
-	    
-	    /*
-	    public void checkCollision(Paddle paddle) {
-	        if(collidesWith(paddle)){
-	            color = Color.GREEN;
-	            ySpeed = -ySpeed;
-	        }
-	        else{
-	            color = Color.WHITE;
-	        }
-	    }
-	    
-	    */
+	
 	    
 	    public void checkCollision(Paddle paddle) {
 	    	if(collidesWith(paddle)) {
@@ -112,14 +81,7 @@ public class PingBall extends gameObject implements Movible{ //se agrega el exte
 	    
 	    
 	    
-	    /*
-	    private boolean collidesWith(Paddle pp) {
-
-	    	boolean intersectaX = (pp.getX() + pp.getWidth() >= x-size) && (pp.getX() <= x+size);
-	        boolean intersectaY = (pp.getY() + pp.getHeight() >= y-size) && (pp.getY() <= y+size);		
-	    	return intersectaX && intersectaY;
-	    }
-	    */
+	 
 	    
 	    private boolean collidesWith(Paddle pp) {
 	    	//usamos pp-getX en vex de pp-x y usamos width como tamaño 
@@ -129,14 +91,7 @@ public class PingBall extends gameObject implements Movible{ //se agrega el exte
 	    	
 	    }
 	    
-	    /*
-	    public void checkCollision(Block block) {
-	        if(collidesWith(block)){
-	            ySpeed = - ySpeed;
-	            block.setDestroyed(true); //se cambia el bloc.destroyed=true pro esto 
-	        }
-	    }
-	    */
+	
 	    
 	    public void checkCollision(Block block) {
 	    	if(collidesWith(block)) {
@@ -145,14 +100,7 @@ public class PingBall extends gameObject implements Movible{ //se agrega el exte
 	    		block.setDestroyed(true);
 	    	}
 	    }
-	    /*
-	    private boolean collidesWith(Block bb) {
-
-	    	boolean intersectaX = (bb.getX() + bb.getWidth() >= x-size) && (bb.getX() <= x+size);
-	        boolean intersectaY = (bb.getY() + bb.getHeight() >= y-size) && (bb.getY() <= y+size);		
-	    	return intersectaX && intersectaY;
-	    }
-	    */
+	 
 	    
 	    private boolean collidesWith(Block bb) {
 	    	boolean intersectaX=(bb.getX() + bb.getWidth() >= x - width) && (bb.getX() <= x + width);
