@@ -6,7 +6,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
-public class PingBall extends gameObject implements Movible{ //se agrega el extends gameObject y el implments movible 
+public class PingBall extends gameObject implements Movible{ 
 	
 	    private int xSpeed;
 	    private int ySpeed;
@@ -14,7 +14,7 @@ public class PingBall extends gameObject implements Movible{ //se agrega el exte
 	    private boolean estaQuieto;
 	    
 	    public PingBall(int x, int y, int size, int xSpeed, int ySpeed, boolean iniciaQuieto) {
-	        super(x,y,size,size); //usamos size como ancho y alto 
+	        super(x,y,size,size); 
 	    	
 	        this.xSpeed = xSpeed;
 	        this.ySpeed = ySpeed;
@@ -37,15 +37,30 @@ public class PingBall extends gameObject implements Movible{ //se agrega el exte
 	    public int getSize() {
 	    	return width;
 	    }
-	    
-	    public int getY() {return y;}
+	  
+
+		public int getXSpeed() {
+    		return xSpeed;
+		}
+
+		public void setXSpeed(int xSpeed) {
+    		this.xSpeed = xSpeed;
+		}
+
+		public int getYSpeed() {
+    		return ySpeed;
+		}
+
+		public void setYSpeed(int ySpeed) {
+    		this.ySpeed = ySpeed;
+		}
 	    
 	  
 	    //agregagmos metodo abtracto heredado de gameobject 
 	    @Override 
 	    public void draw(ShapeRenderer shape) {
 	        shape.setColor(color);
-	        // usamos width heredado como si fuera size 
+	        
 	        shape.circle(x, y, width);
 	    }
 	    
@@ -84,7 +99,7 @@ public class PingBall extends gameObject implements Movible{ //se agrega el exte
 	 
 	    
 	    private boolean collidesWith(Paddle pp) {
-	    	//usamos pp-getX en vex de pp-x y usamos width como tamaño 
+	    	//usamos pp-getX en vex de pp-x y usamos width como tamaï¿½o 
 	    	boolean intersectaX=(pp.getX() + pp.getWidth() >= x - width) && (pp.getX() <= x + width);
 	    	boolean intersectaY = (pp.getY() + pp.getHeight() >= y - width) && (pp.getY() <= y + width);
 	    	return intersectaX && intersectaY;

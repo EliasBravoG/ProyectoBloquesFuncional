@@ -30,12 +30,7 @@ public class Paddle extends gameObject implements Movible{ //se agrega extends g
     		x=x2;
     	}
     }
-     
-    public int getX() {return x;}
-	public int getY() {return y;}
-	public int getWidth() {return width;}
-	public int getHeight() {return height;}
-	
+   
 	
 	@Override
 	public void draw(ShapeRenderer shape){

@@ -20,7 +20,7 @@ public class ManejoDePuntaje {
 		return instance;
 	}
 	
-	//Nuevo 
+
 	public void setEstrategia(StrategyPuntaje nuevaEstrategia) {
 		this.estrategiaActual=nuevaEstrategia;
 	}
@@ -46,7 +46,7 @@ public class ManejoDePuntaje {
 		vidas=3;
 		puntaje=0;
 		
-		//nuevo
+		
 		estrategiaActual=new PuntajeNormal();
 	}
 

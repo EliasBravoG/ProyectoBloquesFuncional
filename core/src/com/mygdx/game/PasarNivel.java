@@ -2,8 +2,8 @@ package com.mygdx.game;
 
 public class PasarNivel extends SecuenciaEvento{
 	@Override
-	protected void reproducirEfectoVisual() {
-		System.out.println("Pasaste de Nivel!");
+	protected void reproducirEfectoVisual(BlockBreakerGame juego) {
+		System.out.println("Pasaste al Nivel " + juego.getNivel());
 	}
 	@Override 
 	
@@ -11,7 +11,7 @@ public class PasarNivel extends SecuenciaEvento{
 		pv.sumarPuntos(100);
 	}
 	@Override 
-	protected void reiniciarPOsiciones(BlockBreakerGame juego) {
+	protected void reiniciarPosiciones(BlockBreakerGame juego) {
 		super.reiniciarPosiciones(juego);
 		juego.subirNivel();
 	}

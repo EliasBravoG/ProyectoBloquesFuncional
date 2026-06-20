@@ -31,7 +31,7 @@ public abstract class gameObject {
 	public int getHeight() {
 		return height;
 	}
-	//revisar esto luego
+	
 	public abstract void draw(ShapeRenderer shape);
 
 }

@@ -2,7 +2,7 @@ package com.mygdx.game;
 
 public class SecuenciaPerderVida extends SecuenciaEvento{
 	@Override
-	protected void reproducirEfectoVisual() {
+	protected void reproducirEfectoVisual(BlockBreakerGame juego) {
 		System.out.println("Perdiste una vida!");
 	}
 	@Override
